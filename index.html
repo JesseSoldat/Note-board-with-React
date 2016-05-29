@@ -29,6 +29,8 @@
  			this.setState({editing: true});
  		},
  		save: function(){
+ 			var newText = ReactDOM.findDOMNode(this.refs.newText);
+ 			console.log(newText.value);
  			this.setState({editing: false});
  		},
  		remove: function(){
@@ -48,7 +50,7 @@
  		renderForm: function(){
  			return(
  				<div id="note">
- 					<textarea className="form-control" defaultValue={this.props.children}/>
+ 					<textarea className="form-control" defaultValue={this.props.children} ref="newText"/>
  					<button onClick={this.save} className="btn btn-success glyphicon glyphicon-floppy-disk"></button>
  				</div>
  			);
@@ -61,8 +63,25 @@
  			}
  		}
  	});
+	var Board = React.createClass({
+		getInitialState: function(){
+			return ({notes: 
+				['take out the garbage', 'do laundry', 'wash my clothes', 'go to the market']}
+				);
+		},
+		eachNote: function(note,i){
+			return (<Note key={i}>{note}</Note>);
+		},
+		render: function(){
+			return(
+				<div>
+					{this.state.notes.map(this.eachNote)};
+				</div>
+				);
+		}
+	});
 
- 	ReactDOM.render(<Note>Hello World</Note >, document.getElementById('root'));
+ 	ReactDOM.render(<Board />, document.getElementById('root'));
 
 
  </script>

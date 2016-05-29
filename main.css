@@ -1,7 +1,10 @@
+
 body {
 	margin: 0;
 	padding: 0;
+	background-color: #eab92d;
 }
+
 div#root {
 	height: 100%;
 	overflow: hidden;
@@ -9,7 +12,8 @@ div#root {
 div#note {
 	width: 150px;
 	height: 150px;
-	position: absolute;
+	margin: 5px;
+	position: relative;
 	background-color: yellow;
 	box-shadow: 5px 5px 15px rgba(0,0,0,.5);
 	cursor: pointer;
