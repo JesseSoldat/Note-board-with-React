@@ -1,0 +1,32 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+div#root {
+	height: 100%;
+	overflow: hidden;
+}
+div#note {
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	background-color: yellow;
+	box-shadow: 5px 5px 15px rgba(0,0,0,.5);
+	cursor: pointer;
+}
+div#note > span {
+	position: absolute;
+	bottom: 2px;
+	right: 2px;
+	opacity: 0;
+	transition: opacity .25s;
+}
+div#note:hover > span {
+	opacity: 1;
+}
+
+div#note textarea {
+	height: 75%;
+	width: 100%;
+	background-color:  rgba(255,255,255,.5);
+}
