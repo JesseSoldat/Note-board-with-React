@@ -30,11 +30,12 @@
  		},
  		save: function(){
  			var newText = ReactDOM.findDOMNode(this.refs.newText);
- 			console.log(newText.value);
+ 			// console.log(newText.value);
+ 			this.props.update(newText.value, this.props.index);
  			this.setState({editing: false});
  		},
  		remove: function(){
- 			console.log('removing');
+ 			this.props.remove();
  		},
  		renderDisplay: function(){
  			return (
@@ -69,13 +70,26 @@
 				['take out the garbage', 'do laundry', 'wash my clothes', 'go to the market']}
 				);
 		},
+		remove: function(i){
+			var arr = this.state.notes;
+			arr.splice(i,1);
+			this.setState({notes: arr});
+		},
+		update: function(newText,i){
+			console.log(newText);
+			console.log(i);
+			var arr = this.state.notes;
+			arr[i] = newText;
+			this.setState({notes: arr});
+			console.log(this.state.notes);
+		},
 		eachNote: function(note,i){
-			return (<Note key={i}>{note}</Note>);
+			return (<Note key={i} index={i} remove={this.remove} update={this.update}>{note}</Note>);
 		},
 		render: function(){
 			return(
 				<div>
-					{this.state.notes.map(this.eachNote)};
+					{this.state.notes.map(this.eachNote)}
 				</div>
 				);
 		}
