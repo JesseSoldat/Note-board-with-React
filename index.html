@@ -24,6 +24,17 @@
  				{editing: false}
  				);
  		},
+ 		componentWillMount: function(){
+ 			this.style = {
+ 				right: this.randomBetween(0, window.innerWidth - 150) + 'px',
+ 				top: this.randomBetween(0, window.innerHeight - 150) + 'px',
+ 				transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg'
+
+ 			};
+ 		},
+ 		randomBetween: function(min, max){
+ 			return (min + Math.ceil(Math.random()* max));
+ 		},
  		edit: function(){
  			console.log('editing');
  			this.setState({editing: true});
@@ -39,7 +50,7 @@
  		},
  		renderDisplay: function(){
  			return (
- 				<div id="note">
+ 				<div id="note" style={this.style}>
  					<p>{this.props.children}</p>
  					<span>
 	 					<button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil"></button>
@@ -50,7 +61,7 @@
  		},
  		renderForm: function(){
  			return(
- 				<div id="note">
+ 				<div id="note" style={this.style}>
  					<textarea className="form-control" defaultValue={this.props.children} ref="newText"/>
  					<button onClick={this.save} className="btn btn-success glyphicon glyphicon-floppy-disk"></button>
  				</div>
@@ -70,6 +81,10 @@
 				{notes: []}
 				);
 		},
+		nextId: function() {
+			this.uniqueId = this.uniqueId || 0;
+			return this.uniqueId++;
+		},
 		remove: function(i){
 			var arr = this.state.notes;
 			arr.splice(i,1);
@@ -79,17 +94,21 @@
 			console.log(newText);
 			console.log(i);
 			var arr = this.state.notes;
-			arr[i] = newText;
+			arr[i].note = newText;
 			this.setState({notes: arr});
 			console.log(this.state.notes);
 		},
 		eachNote: function(note,i){
-			return (<Note key={i} index={i} remove={this.remove} update={this.update}>{note}</Note>);
+			return (<Note key={note.id} index={i} remove={this.remove} update={this.update}>{note.note}</Note>);
 		},
 		add: function(text) {
 			var arr = this.state.notes;
-			arr.push(text);
-			console.log(arr);
+			arr.push(
+				{
+					id: this.nextId(),
+					note: text
+				}
+				);
 			this.setState({notes: arr});
 		},
 		render: function(){
