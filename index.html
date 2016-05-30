@@ -66,8 +66,8 @@
  	});
 	var Board = React.createClass({
 		getInitialState: function(){
-			return ({notes: 
-				['take out the garbage', 'do laundry', 'wash my clothes', 'go to the market']}
+			return (
+				{notes: []}
 				);
 		},
 		remove: function(i){
@@ -86,10 +86,17 @@
 		eachNote: function(note,i){
 			return (<Note key={i} index={i} remove={this.remove} update={this.update}>{note}</Note>);
 		},
+		add: function(text) {
+			var arr = this.state.notes;
+			arr.push(text);
+			console.log(arr);
+			this.setState({notes: arr});
+		},
 		render: function(){
 			return(
 				<div>
 					{this.state.notes.map(this.eachNote)}
+					<button onClick={this.add.bind(null, "New Note")} className="btn btn-sm btn-success glyphicon glyphicon-plus" />
 				</div>
 				);
 		}
