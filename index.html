@@ -32,6 +32,9 @@
 
  			};
  		},
+ 		componentDidMount: function(){
+ 			$(ReactDOM.findDOMNode(this)).draggable();
+ 		},
  		randomBetween: function(min, max){
  			return (min + Math.ceil(Math.random()* max));
  		},
@@ -101,6 +104,18 @@
 		eachNote: function(note,i){
 			return (<Note key={note.id} index={i} remove={this.remove} update={this.update}>{note.note}</Note>);
 		},
+		componentWillMount: function(){
+			
+			var self = this;
+			if(this.props.count) {
+				$.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" + this.props.count + "&start-with-lorem=1&callback=?", function(data){
+					data[0].split('. ').forEach(function(sentence){
+						self.add(sentence.substring(0,50));
+					})
+					
+				});
+			}
+		},
 		add: function(text) {
 			var arr = this.state.notes;
 			arr.push(
@@ -121,7 +136,7 @@
 		}
 	});
 
- 	ReactDOM.render(<Board />, document.getElementById('root'));
+ 	ReactDOM.render(<Board count={3}/>, document.getElementById('root'));
 
 
  </script>

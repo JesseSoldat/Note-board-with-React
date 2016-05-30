@@ -18,6 +18,9 @@ div#note {
 	box-shadow: 5px 5px 15px rgba(0,0,0,.5);
 	cursor: pointer;
 }
+div#note > p {
+	padding: 10px;
+}
 div#note > span {
 	position: absolute;
 	bottom: 2px;
@@ -34,8 +37,5 @@ div#note textarea {
 	width: 100%;
 	background-color:  rgba(255,255,255,.5);
 }
-.btn-success {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-}
+
+
